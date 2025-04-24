@@ -22,8 +22,7 @@ void createCommand(char *fid,char *fileSize,char *pins,char *output) {
     snprintf(len_hex, sizeof(len_hex), "%02X", (int)(strlen(fid) / 2));
     concat_hex(value, 2, len_hex, fid);
 
-    concat_hex(value, 1, "8A01058B");
-
+    printf("%s\n",value);
 
     // TLV for Security
     // Step 2
@@ -32,14 +31,14 @@ void createCommand(char *fid,char *fileSize,char *pins,char *output) {
 
     // Step 3
     // TLV for file Size
-    snprintf(len_hex, sizeof(len_hex), "%02X", (int)(strlen(fid) / 2));
-    concat_hex(value, 2, len_hex, fid);
+    snprintf(len_hex, sizeof(len_hex), "%02X", (int)(strlen(fileSize) / 2));
+    concat_hex(value, 2, len_hex, fileSize);
 
     // TLV Pin Tag
     concat_hex(value, 1, "C6");
 
      // Values of Pin
-     snprintf(len_hex, sizeof(len_hex), "%02X", (int)(strlen(fid) / 2));
+     snprintf(len_hex, sizeof(len_hex), "%02X", (int)(strlen(pins) / 2));
      concat_hex(value, 2, len_hex, fid);
  
      // ADD 8500
@@ -63,12 +62,16 @@ int main() {
     // file Id
     printf("Enter File Id : ");
     scanf("%s",fid);
+    fflush(stdout);
 
     printf("File Size : ");
-    scanf("%s",fid);
+    scanf("%s",fileSize);
+    fflush(stdout);
 
     printf("Pin's: ");
-    scanf("%s",fid);
+    scanf("%s",pin);
+    fflush(stdout);
+
 
     createCommand(fid,fileSize,pin,output);
 

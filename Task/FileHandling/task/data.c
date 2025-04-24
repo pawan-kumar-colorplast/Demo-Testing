@@ -60,6 +60,16 @@ void print_Data(FileHeader mf) {
     printf("File Size: %u bytes\n", mf.file_size);
 }
 
+void concat_hex(char *dest, int count, ...) {
+    va_list args;
+    va_start(args, count);
+    for (int i = 0; i < count; ++i) {
+        const char *hex = va_arg(args, const char*);
+        strcat(dest, hex);
+    }
+    va_end(args);
+}
+
 int isHeaderValidForCreate(Header h) {
     // Expected values
     const uint16_t exp_cls = 0x00;
@@ -148,8 +158,8 @@ int create_file(const char *filename) {
     char *fci = "63";
     char *value = "820278218302";
     char *fid = "";
-    char *value2 = "8A01058B03"
-    char *defaultARR = "2F06" 
+    char *value2 = "8A01058B03";
+    char *defaultARR = "2F06" ;
     char *value3 = "018102";
     char *fsize = "0000";
     char *pin = "C6";
